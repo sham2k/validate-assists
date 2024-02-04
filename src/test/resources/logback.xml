@@ -23,10 +23,10 @@
             <pattern>${LOG_FORMAT}</pattern>
         </encoder>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>${LOG_HOME}/daily/${LOG_FILE}_%d{yyyy-MM-dd}.log.%i.gz</fileNamePattern>
-            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+            <fileNamePattern>${LOG_HOME}/daily/${LOG_PREFIX}_%d{yyyy-MM-dd}.log.%i.gz</fileNamePattern>
+            <timeBasedRollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
                 <maxFileSize>10MB</maxFileSize>
-            </timeBasedFileNamingAndTriggeringPolicy>
+            </timeBasedRollingPolicy>
             <maxHistory>1</maxHistory>
         </rollingPolicy>
     </appender>

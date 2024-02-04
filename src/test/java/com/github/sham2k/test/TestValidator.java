@@ -1,6 +1,7 @@
 package com.github.sham2k.test;
 
 import com.github.sham2k.test.bean.User;
+import com.github.sham2k.test.bean.UserReq;
 import com.github.sham2k.test.bean.WebReq;
 import com.github.sham2k.test.group.CREATE;
 import com.github.sham2k.test.group.SELECT;
@@ -9,6 +10,7 @@ import com.github.sham2k.validation.config.ValidatorManager;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
 import jakarta.validation.ValidatorFactory;
+import jakarta.validation.groups.Default;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -41,7 +43,7 @@ public class TestValidator
         req.setCmdCode("cmd.001");
         req.setReqData(reqData);
 
-        Set<ConstraintViolation<WebReq>> result = ValidatorManager.validate(req, SELECT.class);
+        Set<ConstraintViolation<WebReq>> result = ValidatorManager.validate(req, Default.class, SELECT.class);
         if (result.isEmpty()) {
             System.out.println("**** PASS");
         }
@@ -50,4 +52,31 @@ public class TestValidator
             result.forEach(System.out::println);
         }
     }
+
+    @Test
+    void testUserReq()
+    {
+        User user = new User();
+        user.setUserCode("u001");
+        user.setUserName("tomcat");
+
+        Map<String, Object> reqData = HashMap.newHashMap(4);
+        reqData.put("table", "t_user");
+        reqData.put("rows", 5);
+        reqData.put("user", user);
+
+        UserReq req = new UserReq();
+        req.setCmdCode("cmd.001");
+        req.setReqData(reqData);
+
+        Set<ConstraintViolation<UserReq>> result = ValidatorManager.validate(req, Default.class, SELECT.class);
+        if (result.isEmpty()) {
+            System.out.println("**** PASS");
+        }
+        else {
+            System.out.println("**** FAIL");
+            result.forEach(System.out::println);
+        }
+    }
+
 }

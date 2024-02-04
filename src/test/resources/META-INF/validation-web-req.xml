@@ -20,9 +20,6 @@
         <field name="cmdCode">
             <constraint annotation="org.hibernate.validator.constraints.Length">
                 <message>cmdCode长度应是xxx.nnn格式！</message>
-                <groups>
-                    <value>com.github.sham2k.test.group.CREATE</value>
-                </groups>
                 <element name="max">7</element>
                 <element name="min">7</element>
             </constraint>
