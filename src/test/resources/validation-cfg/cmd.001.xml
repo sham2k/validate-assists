@@ -1,0 +1,37 @@
+<constraint-mappings>
+    <bean class="cmd.001" ignore-annotations="false">
+        <field name="table">
+            <constraint annotation="jakarta.validation.constraints.NotNull"/>
+            <constraint annotation="org.hibernate.validator.constraints.Length">
+                <element name="min">
+                    <value>0</value>
+                </element>
+                <element name="max">
+                    <value>60</value>
+                </element>
+            </constraint>
+        </field>
+        <field name="rows">
+            <constraint annotation="jakarta.validation.constraints.NotNull">
+                <groups>
+                    <value>
+                        com.github.sham2k.test.group.SELECT
+                    </value>
+                </groups>
+            </constraint>
+            <constraint annotation="jakarta.validation.constraints.Max">
+                <groups>
+                    <value>
+                        com.github.sham2k.test.group.SELECT
+                    </value>
+                </groups>
+                <element name="value">
+                    <value>5</value>
+                </element>
+            </constraint>
+        </field>
+        <field name="user">
+            <valid/>
+        </field>
+    </bean>
+</constraint-mappings>
