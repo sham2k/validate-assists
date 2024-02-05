@@ -1,4 +1,4 @@
-package com.github.sham2k.validation.util;
+package io.github.sham2k.validation.util;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.core.io.Resource;

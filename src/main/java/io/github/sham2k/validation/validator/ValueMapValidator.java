@@ -1,10 +1,10 @@
-package com.github.sham2k.validation.validator;
+package io.github.sham2k.validation.validator;
 
-import com.github.sham2k.validation.config.ConfigManager;
-import com.github.sham2k.validation.config.ValidatorManager;
-import com.github.sham2k.validation.config.bean.BeanDefine;
-import com.github.sham2k.validation.config.bean.ConstraintDefine;
-import com.github.sham2k.validation.constraints.ValueMap;
+import io.github.sham2k.validation.config.ConfigManager;
+import io.github.sham2k.validation.config.ValidatorManager;
+import io.github.sham2k.validation.config.bean.BeanDefine;
+import io.github.sham2k.validation.config.bean.ConstraintDefine;
+import io.github.sham2k.validation.constraints.ValueMap;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import jakarta.validation.ConstraintViolation;

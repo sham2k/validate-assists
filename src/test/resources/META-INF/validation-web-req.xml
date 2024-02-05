@@ -7,7 +7,7 @@
 
     <bean class="com.github.sham2k.test.bean.WebReq" ignore-annotations="false">
         <class ignore-annotations="false">
-<!--            <constraint annotation="com.github.sham2k.validation.constraints.ValueMap">-->
+<!--            <constraint annotation="constraints.io.github.sham2k.validation.ValueMap">-->
 <!--                <groups>-->
 <!--                    <value>com.github.sham2k.test.group.CREATE</value>-->
 <!--                </groups>-->
@@ -25,7 +25,7 @@
             </constraint>
         </field>
         <field name="reqData">
-            <constraint annotation="com.github.sham2k.validation.constraints.ValueMap">
+            <constraint annotation="io.github.sham2k.validation.constraints.ValueMap">
                 <element name="defineName">
                     <value>cmd.001</value>
                 </element>

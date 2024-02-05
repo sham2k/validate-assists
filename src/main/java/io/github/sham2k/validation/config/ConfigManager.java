@@ -1,12 +1,12 @@
-package com.github.sham2k.validation.config;
+package io.github.sham2k.validation.config;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
-import com.github.sham2k.validation.config.bean.BeanDefine;
-import com.github.sham2k.validation.config.bean.FileDefine;
-import com.github.sham2k.validation.util.ResourceScanner;
+import io.github.sham2k.validation.config.bean.BeanDefine;
+import io.github.sham2k.validation.config.bean.FileDefine;
+import io.github.sham2k.validation.util.ResourceScanner;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.Resource;
 

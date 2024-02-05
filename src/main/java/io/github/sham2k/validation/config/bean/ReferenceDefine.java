@@ -1,4 +1,4 @@
-package com.github.sham2k.validation.config.bean;
+package io.github.sham2k.validation.config.bean;
 
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import lombok.Data;

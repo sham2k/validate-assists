@@ -1,6 +1,6 @@
-package com.github.sham2k.validation.constraints;
+package io.github.sham2k.validation.constraints;
 
-import com.github.sham2k.validation.validator.ValueMapValidator;
+import io.github.sham2k.validation.validator.ValueMapValidator;
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 

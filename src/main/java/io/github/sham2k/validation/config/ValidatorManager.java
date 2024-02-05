@@ -1,7 +1,7 @@
-package com.github.sham2k.validation.config;
+package io.github.sham2k.validation.config;
 
-import com.github.sham2k.validation.config.bean.ConstraintDefine;
-import com.github.sham2k.validation.util.ClassLoadingHelper;
+import io.github.sham2k.validation.config.bean.ConstraintDefine;
+import io.github.sham2k.validation.util.ClassLoadingHelper;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ValidatorFactory;
