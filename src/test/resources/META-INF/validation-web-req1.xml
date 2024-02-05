@@ -5,18 +5,7 @@
             https://jakarta.ee/xml/ns/validation/validation-mapping-3.0.xsd"
         version="3.0">
 
-    <bean class="com.github.sham2k.test.bean.WebReq" ignore-annotations="false">
-        <class ignore-annotations="false">
-<!--            <constraint annotation="constraints.io.github.sham2k.validation.ValueMap">-->
-<!--                <groups>-->
-<!--                    <value>com.github.sham2k.test.group.CREATE</value>-->
-<!--                </groups>-->
-<!--                <element name="targetName">-->
-<!--                    <value>reqData</value>-->
-<!--                </element>-->
-<!--                <element name="defineName">${cmdCode}</element>-->
-<!--            </constraint>-->
-        </class>
+    <bean class="io.github.sham2k.test.bean.WebReq1" ignore-annotations="false">
         <field name="cmdCode">
             <constraint annotation="org.hibernate.validator.constraints.Length">
                 <message>cmdCode长度应是xxx.nnn格式！</message>

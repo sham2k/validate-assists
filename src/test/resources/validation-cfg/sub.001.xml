@@ -1,0 +1,24 @@
+<constraint-mappings>
+    <bean class="sub.001" ignore-annotations="false">
+        <field name="k1">
+            <constraint annotation="org.hibernate.validator.constraints.Length">
+                <element name="min">
+                    <value>3</value>
+                </element>
+                <element name="max">
+                    <value>3</value>
+                </element>
+            </constraint>
+        </field>
+        <field name="k2">
+            <constraint annotation="org.hibernate.validator.constraints.Length">
+                <element name="min">
+                    <value>3</value>
+                </element>
+                <element name="max">
+                    <value>6</value>
+                </element>
+            </constraint>
+        </field>
+    </bean>
+</constraint-mappings>

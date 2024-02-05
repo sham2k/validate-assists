@@ -5,6 +5,7 @@
             https://jakarta.ee/xml/ns/validation/validation-configuration-3.0.xsd"
         version="3.0">
 
-    <constraint-mapping>META-INF/validation-web-req.xml</constraint-mapping>
+    <constraint-mapping>META-INF/validation-web-req1.xml</constraint-mapping>
+    <constraint-mapping>META-INF/validation-web-req2.xml</constraint-mapping>
 
 </validation-config>

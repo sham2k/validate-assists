@@ -1,6 +1,6 @@
-package com.github.sham2k.test.bean;
+package io.github.sham2k.test.bean;
 
-import com.github.sham2k.test.group.CREATE;
+import io.github.sham2k.test.group.CREATE;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;

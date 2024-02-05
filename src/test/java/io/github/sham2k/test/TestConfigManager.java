@@ -1,4 +1,4 @@
-package com.github.sham2k.test;
+package io.github.sham2k.test;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.SerializationFeature;

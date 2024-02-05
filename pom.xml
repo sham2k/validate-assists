@@ -32,6 +32,13 @@
         <developerConnection>scm:git:ssh://github.com:sham2k/validate-assists.git</developerConnection>
         <url>http://github.com/sham2k/validate-assists/tree/master</url>
     </scm>
+    <distributionManagement>
+        <repository>
+            <id>central</id>
+            <name>central-releases</name>
+            <url>https://s01.oss.sonatype.org/</url>
+        </repository>
+    </distributionManagement>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

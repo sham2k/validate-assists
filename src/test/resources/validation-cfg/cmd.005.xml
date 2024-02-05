@@ -1,5 +1,5 @@
 <constraint-mappings>
-    <bean class="cmd.001" ignore-annotations="false">
+    <bean class="cmd.005" ignore-annotations="false">
         <field name="table">
             <constraint annotation="org.hibernate.validator.constraints.Length">
                 <element name="min">
@@ -21,6 +21,9 @@
         </field>
         <field name="user">
             <valid/>
+        </field>
+        <field name="subMap">
+            <valid name="sub.001" />
         </field>
     </bean>
 </constraint-mappings>
