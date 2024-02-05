@@ -1,4 +1,4 @@
-package com.github.sham2k.validation.util;
+package io.github.sham2k.validation.util;
 
 import org.hibernate.validator.internal.IgnoreForbiddenApisErrors;
 import org.hibernate.validator.internal.util.privilegedactions.LoadClass;

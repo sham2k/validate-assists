@@ -2,10 +2,9 @@ package com.github.sham2k.test;
 
 import com.github.sham2k.test.bean.User;
 import com.github.sham2k.test.bean.WebReq;
-import com.github.sham2k.test.group.CREATE;
 import com.github.sham2k.test.group.SELECT;
-import com.github.sham2k.validation.config.ConfigManager;
-import com.github.sham2k.validation.config.ValidatorManager;
+import io.github.sham2k.validation.config.ConfigManager;
+import io.github.sham2k.validation.config.ValidatorManager;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
 import jakarta.validation.ValidatorFactory;
