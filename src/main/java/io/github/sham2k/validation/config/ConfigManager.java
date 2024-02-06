@@ -7,6 +7,7 @@ import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import io.github.sham2k.validation.config.bean.BeanDefine;
 import io.github.sham2k.validation.config.bean.FileDefine;
 import io.github.sham2k.validation.util.ResourceScanner;
+import io.github.sham2k.validation.validator.ValidatorManager;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.Resource;
 

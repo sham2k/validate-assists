@@ -1,7 +1,6 @@
 package io.github.sham2k.validation.validator;
 
 import io.github.sham2k.validation.config.ConfigManager;
-import io.github.sham2k.validation.config.ValidatorManager;
 import io.github.sham2k.validation.config.bean.BeanDefine;
 import io.github.sham2k.validation.config.bean.ConstraintDefine;
 import io.github.sham2k.validation.constraints.ValueMap;

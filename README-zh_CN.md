@@ -263,3 +263,10 @@ public class WebReq4
 ### 3.2.1 新增
 
 * 支持验证嵌套的 MAP 实例
+
+## 3.3 Version 0.2.1
+
+### 3.2.1 Modify
+
+* 将`ValidatorManager` 从包`io.github.sham2k.validation.config`迁移到`io.github.sham2k.validation.validator`。
+

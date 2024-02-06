@@ -1,4 +1,4 @@
-package io.github.sham2k.validation.config;
+package io.github.sham2k.validation.validator;
 
 import io.github.sham2k.validation.config.bean.ConstraintDefine;
 import io.github.sham2k.validation.util.ClassLoadingHelper;

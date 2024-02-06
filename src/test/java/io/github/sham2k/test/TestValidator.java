@@ -3,13 +3,11 @@ package io.github.sham2k.test;
 import io.github.sham2k.test.bean.*;
 import io.github.sham2k.test.group.SELECT;
 import io.github.sham2k.validation.config.ConfigManager;
-import io.github.sham2k.validation.config.ValidatorManager;
-import jakarta.validation.ConstraintValidatorContext;
+import io.github.sham2k.validation.validator.ValidatorManager;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
 import jakarta.validation.ValidatorFactory;
 import jakarta.validation.groups.Default;
-import org.hibernate.validator.internal.engine.constraintvalidation.ConstraintValidatorContextImpl;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 

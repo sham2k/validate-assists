@@ -263,3 +263,10 @@ If the element value of the MAP instance which be validated is a Map instance, r
 ### 3.2.1 Append
 
 * Support validate nested MAP instances.
+
+[## 3.3 Version 0.2.1
+
+### 3.2.1 Modify
+
+* Migrate `ValidatorManager` from package `io.github.sham2k.validation.config` to `io.github.sham2k.validation.validator`.
+
