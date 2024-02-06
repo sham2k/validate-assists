@@ -1,14 +1,19 @@
 package io.github.sham2k.validation.validator;
 
 import io.github.sham2k.validation.config.bean.ConstraintDefine;
+import io.github.sham2k.validation.constraints.ValueMapDef;
 import io.github.sham2k.validation.util.ClassLoadingHelper;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintViolation;
+import jakarta.validation.Validation;
 import jakarta.validation.ValidatorFactory;
 import jakarta.validation.constraintvalidation.ValidationTarget;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.commons.lang3.StringUtils;
+import org.hibernate.validator.HibernateValidator;
+import org.hibernate.validator.HibernateValidatorConfiguration;
+import org.hibernate.validator.cfg.ConstraintMapping;
 import org.hibernate.validator.internal.IgnoreForbiddenApisErrors;
 import org.hibernate.validator.internal.engine.constraintvalidation.ConstraintValidatorDescriptor;
 import org.hibernate.validator.internal.metadata.core.ConstraintHelper;
@@ -54,6 +59,36 @@ public class ValidatorManager
     public static <T> Set<ConstraintViolation<T>> validate(T object, Class<?>... groups)
     {
         try {
+            setGroups(groups);
+            return validatorFactory.getValidator().validate(object, groups);
+        }
+        finally {
+            validationGroups.remove();
+        }
+    }
+
+    /**
+     * 直接使用约束集合验证实例。
+     *
+     * @param object     要验证的对象
+     * @param defineName 使用的约束集合名
+     * @param groups     使用的组
+     * @return 验证结果
+     */
+    public static <T> Set<ConstraintViolation<T>> validate(T object, String defineName, Class<?>... groups)
+    {
+        // 动态创建约束
+        Class<?> reqClazz = object.getClass();
+        HibernateValidatorConfiguration configuration = Validation
+            .byProvider(HibernateValidator.class)
+            .configure();
+        ConstraintMapping constraintMapping = configuration.createConstraintMapping();
+        constraintMapping
+            .type(reqClazz)
+            .constraint(new ValueMapDef().defineName(defineName));
+        // 创建并调用校验器
+        try (ValidatorFactory validatorFactory = configuration.addMapping(constraintMapping)
+            .buildValidatorFactory()) {
             setGroups(groups);
             return validatorFactory.getValidator().validate(object, groups);
         }

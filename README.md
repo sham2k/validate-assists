@@ -227,7 +227,20 @@ public class WebReq4
 
 ### 2.2 Validate MAP Instance
 
-If the object to be validated is a Map instance, refer to section 2.1 to add the `ValueMap` constraint to the instance.
+Refer to the following code and directly use the constraint set to validate the Map instance or other object. The objects validated using this pattern do not require constraints defined by HibernateValidation.
+
+````
+Map<String, Object> value = new HashMap<>();
+...
+
+Set<ConstraintViolation<Map<String, Object>>> result = ValidatorManager.validate(value, "cmd.001");
+if (result.isEmpty()) {
+    System.out.println("**** PASS");
+} else {
+    System.out.println("**** FAIL");
+    result.forEach(System.out::println);
+}
+````
 
 ### 2.3 Validate Nested Map
 
@@ -266,7 +279,12 @@ If the element value of the MAP instance which be validated is a Map instance, r
 
 [## 3.3 Version 0.2.1
 
-### 3.2.1 Modify
+### 3.3.1 Modify
 
 * Migrate `ValidatorManager` from package `io.github.sham2k.validation.config` to `io.github.sham2k.validation.validator`.
 
+## 3.4 Version 0.2.2
+
+### 3.4.1 Append
+
+* Implement direct validation of objects using constraint sets.

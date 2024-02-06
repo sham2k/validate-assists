@@ -227,7 +227,19 @@ public class WebReq4
 
 ### 2.2 验证 MAP 实例
 
-如待验证的对象是`Map`实例，参考`2.1节`给实例添加`@ValueMap`约束即可。
+参考如下代码，直接使用约束集合验证`Map`实例或其他对象实例。使用本模式验证的对象，不需要按HibernateValidation定义约束。
+````
+Map<String, Object> value = new HashMap<>();
+...
+
+Set<ConstraintViolation<Map<String, Object>>> result = ValidatorManager.validate(value, "cmd.001");
+if (result.isEmpty()) {
+    System.out.println("**** PASS");
+} else {
+    System.out.println("**** FAIL");
+    result.forEach(System.out::println);
+}
+````
 
 ### 2.3 验证嵌套 Map
 
@@ -266,7 +278,12 @@ public class WebReq4
 
 ## 3.3 Version 0.2.1
 
-### 3.2.1 Modify
+### 3.3.1 Modify
 
 * 将`ValidatorManager` 从包`io.github.sham2k.validation.config`迁移到`io.github.sham2k.validation.validator`。
 
+## 3.4 Version 0.2.2
+
+### 3.4.1 Append
+
+* 实现直接使用约束集合校验对象。

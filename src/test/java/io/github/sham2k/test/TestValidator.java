@@ -161,6 +161,15 @@ public class TestValidator
         Map<String, String> subMap = new HashMap<>(3);
         subMap.put("k1", "value1");
         subMap.put("k2", "value2");
+
+        Set<ConstraintViolation<Map<String, String>>> result = ValidatorManager.validate(subMap, "sub.001");
+        if (result.isEmpty()) {
+            System.out.println("**** PASS");
+        } else {
+            System.out.println("**** FAIL");
+            result.forEach(System.out::println);
+        }
+
     }
 
 }
