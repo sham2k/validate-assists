@@ -14,7 +14,7 @@
         Map's keys and validate Map's values. The typical application scenario is to transfer data through a Map object
         and validate the validity of data during universal communication.
     </description>
-    <url>http://github.com/validate-assists/</url>
+    <url>http://github.com/sham2k/validate-assists/</url>
     <licenses>
         <license>
             <name>The Apache Software License, Version 2.0</name>
