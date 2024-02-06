@@ -71,13 +71,23 @@ public class ValidatorManager
      * 直接使用约束集合验证实例。
      *
      * @param object     要验证的对象
+     * @param targetName 要验证的属性，如验证本对象，应设置为 null。
      * @param defineName 使用的约束集合名
      * @param groups     使用的组
      * @return 验证结果
      */
-    public static <T> Set<ConstraintViolation<T>> validate(T object, String defineName, Class<?>... groups)
+    public static <T> Set<ConstraintViolation<T>> validate(T object, String targetName, String defineName,
+        Class<?>... groups)
     {
         // 动态创建约束
+        ValueMapDef valueMapDef = new ValueMapDef();
+        if (StringUtils.isNotBlank(targetName)) {
+            valueMapDef.targetName(targetName);
+        }
+        if (StringUtils.isNotBlank(defineName)) {
+            valueMapDef.defineName(defineName);
+        }
+
         Class<?> reqClazz = object.getClass();
         HibernateValidatorConfiguration configuration = Validation
             .byProvider(HibernateValidator.class)
@@ -85,7 +95,7 @@ public class ValidatorManager
         ConstraintMapping constraintMapping = configuration.createConstraintMapping();
         constraintMapping
             .type(reqClazz)
-            .constraint(new ValueMapDef().defineName(defineName));
+            .constraint(valueMapDef);
         // 创建并调用校验器
         try (ValidatorFactory validatorFactory = configuration.addMapping(constraintMapping)
             .buildValidatorFactory()) {

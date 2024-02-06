@@ -17,6 +17,9 @@ import java.util.Set;
 
 public class TestValidator
 {
+    /**
+     * 初始化
+     */
     @BeforeAll
     static void setUp()
     {
@@ -25,6 +28,9 @@ public class TestValidator
         ValidatorManager.setValidatorFactory(validatorFactory);
     }
 
+    /**
+     * XML模式： 字段配置 + 固定约束集合名
+     */
     @Test
     void testWebReq1()
     {
@@ -50,6 +56,9 @@ public class TestValidator
         }
     }
 
+    /**
+     * XML模式： 类配置 + 动态约束集合名
+     */
     @Test
     void testWebReq2()
     {
@@ -75,6 +84,9 @@ public class TestValidator
         }
     }
 
+    /**
+     * 注解模式： 字段配置 + 固定约束集合名
+     */
     @Test
     void testWebReq3()
     {
@@ -100,6 +112,9 @@ public class TestValidator
         }
     }
 
+    /**
+     * 注解模式： 类配置 + 动态约束集合名
+     */
     @Test
     void testWebReq4()
     {
@@ -125,8 +140,34 @@ public class TestValidator
         }
     }
 
+    /**
+     * 直接校验普通对象
+     */
     @Test
     void testWebReq5()
+    {
+        Map<String, Object> reqData = HashMap.newHashMap(4);
+        reqData.put("table", "t_user1");
+        reqData.put("rows", 5);
+
+        WebReq5 req = new WebReq5();
+        req.setCmdCode("cmd.001");
+        req.setReqData(reqData);
+
+        Set<ConstraintViolation<WebReq5>> result = ValidatorManager.validate(req, "reqData", "${cmdCode}");
+        if (result.isEmpty()) {
+            System.out.println("**** PASS");
+        } else {
+            System.out.println("**** FAIL");
+            result.forEach(System.out::println);
+        }
+    }
+
+    /**
+     * 注解模式：类注解 + 动态约束集合名 + 校验嵌套 Map
+     */
+    @Test
+    void testSubMap1()
     {
         Map<String, String> subMap = new HashMap<>(3);
         subMap.put("k1", "value1");
@@ -155,21 +196,22 @@ public class TestValidator
         }
     }
 
+    /**
+     * 直接校验Map实例
+     */
     @Test
-    void testSubMap()
+    void testSubMap2()
     {
         Map<String, String> subMap = new HashMap<>(3);
         subMap.put("k1", "value1");
         subMap.put("k2", "value2");
 
-        Set<ConstraintViolation<Map<String, String>>> result = ValidatorManager.validate(subMap, "sub.001");
+        Set<ConstraintViolation<Map<String, String>>> result = ValidatorManager.validate(subMap, null, "sub.001");
         if (result.isEmpty()) {
             System.out.println("**** PASS");
         } else {
             System.out.println("**** FAIL");
             result.forEach(System.out::println);
         }
-
     }
-
 }

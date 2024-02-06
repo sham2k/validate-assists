@@ -7,6 +7,7 @@ import io.github.sham2k.validation.constraints.ValueMap;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import jakarta.validation.ConstraintViolation;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.groups.Default;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.beanutils.MethodUtils;
@@ -47,7 +48,7 @@ public class ValueMapValidator implements ConstraintValidator<ValueMap, Object>
         return isValid(value, null, null, null, context);
     }
 
-    public boolean isValid(Object value, String targetFieldName, String targetDefineName, String targetPathName,
+    private boolean isValid(Object value, String targetFieldName, String targetDefineName, String targetPathName,
         ConstraintValidatorContext context)
     {
         if (!(context instanceof ConstraintValidatorContextImpl instance)) {
@@ -95,92 +96,100 @@ public class ValueMapValidator implements ConstraintValidator<ValueMap, Object>
         beanDefine.getFieldDefines().forEach(fieldDefine -> {
             String fieldName = fieldDefine.getName();
             Object fieldValue = getProperty(targetValue, fieldName);
-            if (fieldDefine.getConstraintDefiness() == null || fieldDefine.getConstraintDefiness()
-                .isEmpty() || fieldDefine.getValid() != null) {
-                // 如没有定义约束或定义引用，则进行嵌套检查。
-                // 只有复杂对象才可以定义引用，忽略简单对象的检查引用。
-                if (!BeanUtils.isSimpleProperty(fieldValue.getClass()) && fieldDefine.getValid() != null) {
-                    if (fieldValue instanceof Map<?, ?> subMap) {
-                        // 校验嵌套的Map
-                        String subMapDefineName = fieldDefine.getValid().getName();
-                        if (StringUtils.isNotBlank(subMapDefineName)) {
-                            // 此处，targetFieldName必须是空白串
-                            String pathName = getTargetPathName(targetName, targetPathName) + "." + fieldName;
-                            boolean checked = isValid(subMap, "", subMapDefineName, pathName, context);
-                            if (!checked) {
-                                result.set(false);
+            if (fieldValue == null) {
+                if (!(fieldDefine.getConstraintDefiness() == null || fieldDefine.getConstraintDefiness().isEmpty())) {
+                    fieldDefine.getConstraintDefiness().forEach(constraintDefine -> {
+                        ConstraintAnnotationDescriptor<Annotation> annotationDescriptor = constraintDefine.getAnnotationDescriptor();
+                        if (annotationDescriptor.getAnnotation().equals(NotNull.class)) {
+                            String pathName = getTargetPathName(targetName, targetPathName);
+                            if (StringUtils.isNotBlank(pathName)) {
+                                addConstraintViolation(context, null,
+                                    "{jakarta.validation.constraints.NotNull.message}", pathName, fieldName);
                             }
-                            // 恢复
-                            instance.addMessageParameter(DEFINE_FIELD_NAME, finalDefineName);
+                            else {
+                                addConstraintViolation(context, null,
+                                    "{jakarta.validation.constraints.NotNull.message}", fieldName);
+                            }
                         }
-                    }
-                    else {
-                        // 校验其他实例
-                        Set<ConstraintViolation<Object>> errors = ValidatorManager.validate(fieldValue,
-                            ValidatorManager.getGroups());
-                        log.trace("Call HibernateValidator to validate field [{}] value [{}] --> [{}]",
-                            fieldName,
-                            fieldValue,
-                            errors.isEmpty());
-                        if (!errors.isEmpty()) {
-                            result.set(false);
-                            // 添加错误信息参数
-                            errors.forEach(error -> {
-                                String pathName = getTargetPathName(targetName, targetPathName);
-                                if (StringUtils.isNotBlank(pathName)) {
-                                    context.buildConstraintViolationWithTemplate(error.getMessage())
-                                        .addPropertyNode(pathName).addPropertyNode(fieldName)
-                                        .addPropertyNode(error.getPropertyPath().toString())
-                                        .addConstraintViolation();
-                                }
-                                else {
-                                    context.buildConstraintViolationWithTemplate(error.getMessage())
-                                        .addPropertyNode(fieldName).addPropertyNode(error.getPropertyPath().toString())
-                                        .addConstraintViolation();
-                                }
-                            });
-                        }
-                    }
+                    });
                 }
             }
             else {
-                // 如定义了约束，则使用约束进行验证。
-                fieldDefine.getConstraintDefiness().forEach(constraintDefine -> {
-                    ConstraintAnnotationDescriptor<Annotation> annotationDescriptor = constraintDefine.getAnnotationDescriptor();
-                    if (enabledGroup(annotationDescriptor.getGroups())) {
-                        List<ConstraintValidator<Annotation, Object>> validators = ValidatorManager.getValidator(
-                            annotationDescriptor, fieldValue.getClass());
-                        if (!validators.isEmpty()) {
-                            validators.forEach(validator -> {
-                                boolean checked = validator.isValid(fieldValue, context);
-                                log.trace("Validator [{}] validate field [{}] value [{}] --> [{}]",
-                                    validator.getClass().getSimpleName(),
-                                    fieldName,
-                                    fieldValue,
-                                    checked);
+                if (fieldDefine.getConstraintDefiness() == null || fieldDefine.getConstraintDefiness()
+                    .isEmpty() || fieldDefine.getValid() != null) {
+                    // 如没有定义约束或定义引用，则进行嵌套检查。
+                    // 只有复杂对象才可以定义引用，忽略简单对象的检查引用。
+                    if (!BeanUtils.isSimpleProperty(fieldValue.getClass()) && fieldDefine.getValid() != null) {
+                        if (fieldValue instanceof Map<?, ?> subMap) {
+                            // 校验嵌套的Map
+                            String subMapDefineName = fieldDefine.getValid().getName();
+                            if (StringUtils.isNotBlank(subMapDefineName)) {
+                                // 此处，targetFieldName必须是空白串
+                                String pathName = getTargetPathName(targetName, targetPathName) + "." + fieldName;
+                                boolean checked = isValid(subMap, "", subMapDefineName, pathName, context);
                                 if (!checked) {
                                     result.set(false);
-                                    // 添加错误信息参数
-                                    if (!(annotationDescriptor.getAttributes() == null || annotationDescriptor.getAttributes()
-                                        .isEmpty())) {
-                                        annotationDescriptor.getAttributes().forEach(instance::addMessageParameter);
-                                    }
-                                    // 添加错误信息
+                                }
+                                // 恢复原定义名
+                                instance.addMessageParameter(DEFINE_FIELD_NAME, finalDefineName);
+                            }
+                        }
+                        else {
+                            // 校验其他实例
+                            Set<ConstraintViolation<Object>> errors = ValidatorManager.validate(fieldValue,
+                                ValidatorManager.getGroups());
+                            log.trace("Call HibernateValidator to validate field [{}] value [{}] --> [{}]",
+                                fieldName,
+                                fieldValue,
+                                errors.isEmpty());
+                            if (!errors.isEmpty()) {
+                                result.set(false);
+                                // 添加错误信息参数
+                                errors.forEach(error -> {
                                     String pathName = getTargetPathName(targetName, targetPathName);
                                     if (StringUtils.isNotBlank(pathName)) {
-                                        context.buildConstraintViolationWithTemplate(getMessage(constraintDefine))
-                                            .addPropertyNode(pathName).addPropertyNode(fieldName)
-                                            .addConstraintViolation();
+                                        addConstraintViolation(context, null, error.getMessage(), pathName, fieldName, error.getPropertyPath().toString());
                                     }
                                     else {
-                                        context.buildConstraintViolationWithTemplate(getMessage(constraintDefine))
-                                            .addPropertyNode(fieldName).addConstraintViolation();
+                                        addConstraintViolation(context, null, error.getMessage(), fieldName, error.getPropertyPath().toString());
                                     }
-                                }
-                            });
+                                });
+                            }
                         }
                     }
-                });
+                }
+                else {
+                    // 如定义了约束，则使用约束进行验证。
+                    fieldDefine.getConstraintDefiness().forEach(constraintDefine -> {
+                        ConstraintAnnotationDescriptor<Annotation> annotationDescriptor = constraintDefine.getAnnotationDescriptor();
+                        if (enabledGroup(annotationDescriptor.getGroups())) {
+                            List<ConstraintValidator<Annotation, Object>> validators = ValidatorManager.getValidator(
+                                annotationDescriptor, fieldValue.getClass());
+                            if (!validators.isEmpty()) {
+                                validators.forEach(validator -> {
+                                    boolean checked = validator.isValid(fieldValue, context);
+                                    log.trace("Validator [{}] validate field [{}] value [{}] --> [{}]",
+                                        validator.getClass().getSimpleName(),
+                                        fieldName,
+                                        fieldValue,
+                                        checked);
+                                    if (!checked) {
+                                        result.set(false);
+                                        String pathName = getTargetPathName(targetName, targetPathName);
+                                        if (StringUtils.isNotBlank(pathName)) {
+                                            addConstraintViolation(context, annotationDescriptor,
+                                                getMessage(constraintDefine), pathName, fieldName);
+                                        }
+                                        else {
+                                            addConstraintViolation(context, annotationDescriptor,
+                                                getMessage(constraintDefine), fieldName);
+                                        }
+                                    }
+                                });
+                            }
+                        }
+                    });
+                }
             }
         });
         return result.get();
@@ -299,5 +308,28 @@ public class ValueMapValidator implements ConstraintValidator<ValueMap, Object>
         else {
             return StringUtils.isNotBlank(targetName) ? targetName : "";
         }
+    }
+
+    private void addConstraintViolation(ConstraintValidatorContext context,
+        ConstraintAnnotationDescriptor<? extends Annotation> annotationDescriptor, String message, String propertyNode,
+        String... morePropertyNodes)
+    {
+        // 添加错误信息参数
+        ConstraintValidatorContextImpl instance = (ConstraintValidatorContextImpl) context;
+        if (annotationDescriptor != null) {
+            if (!(annotationDescriptor.getAttributes() == null || annotationDescriptor.getAttributes()
+                .isEmpty())) {
+                annotationDescriptor.getAttributes().forEach(instance::addMessageParameter);
+            }
+        }
+        // 添加错误信息
+        ConstraintValidatorContext.ConstraintViolationBuilder.NodeBuilderCustomizableContext builderContext = context.buildConstraintViolationWithTemplate(
+            message).addPropertyNode(propertyNode);
+        if (morePropertyNodes != null) {
+            for (String s : morePropertyNodes) {
+                builderContext = builderContext.addPropertyNode(s);
+            }
+        }
+        builderContext.addConstraintViolation();
     }
 }

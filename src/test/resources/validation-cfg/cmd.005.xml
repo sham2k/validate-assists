@@ -6,7 +6,7 @@
                     <value>0</value>
                 </element>
                 <element name="max">
-                    <value>60</value>
+                    <value>6</value>
                 </element>
             </constraint>
         </field>

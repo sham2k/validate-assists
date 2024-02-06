@@ -266,25 +266,21 @@ If the element value of the MAP instance which be validated is a Map instance, r
 # 3 Change History
 
 ## 3.1 Version 0.1.0
-
 ### 3.1.1 Append
-
 * Implement all basic functions
 
 ## 3.2 Version 0.2.0
-
 ### 3.2.1 Append
-
 * Support validate nested MAP instances.
 
-[## 3.3 Version 0.2.1
-
+## 3.3 Version 0.2.1
 ### 3.3.1 Modify
-
 * Migrate `ValidatorManager` from package `io.github.sham2k.validation.config` to `io.github.sham2k.validation.validator`.
 
 ## 3.4 Version 0.2.2
-
 ### 3.4.1 Append
-
 * Implement direct validation of objects using constraint sets.
+
+## 3.5 Version 0.2.3
+### 3.5.1 Modify
+* Refactoring verification method, supporting setting the 'targetName' parameter.

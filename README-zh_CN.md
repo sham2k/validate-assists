@@ -263,27 +263,22 @@ if (result.isEmpty()) {
 * 给嵌套的 MAP 字段添加`<valid>`约束，指示要验证本字段，并通过`name`属性指示约束集合的名称。
 
 # 3 变更历史
-
 ## 3.1 Version 0.1.0
-
 ### 3.1.1 新增
-
 * 实现基本功能
 
 ## 3.2 Version 0.2.0
-
 ### 3.2.1 新增
-
 * 支持验证嵌套的 MAP 实例
 
 ## 3.3 Version 0.2.1
-
 ### 3.3.1 Modify
-
 * 将`ValidatorManager` 从包`io.github.sham2k.validation.config`迁移到`io.github.sham2k.validation.validator`。
 
 ## 3.4 Version 0.2.2
-
 ### 3.4.1 Append
-
 * 实现直接使用约束集合校验对象。
+
+## 3.5 Version 0.2.3
+### 3.5.1 Modify
+* 重构校验方法，支持设置`targetName`参数。
