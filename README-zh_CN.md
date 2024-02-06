@@ -1,9 +1,8 @@
 # 验证辅助工具
 
-本工具增强HibernateValidator的功能，支持以`Map`对象的`key`作为`field`定义约束，对`Map`
-对象的值进行验证。本工具典型应用场景是通过Map传递数据以减少值对象类数量和实现通用化通信时验证数据合法性。
+本工具增强HibernateValidator的功能，支持以`Map`对象的`key`作为`field`定义约束，对`Map`对象的值进行验证。本工具典型应用场景是通过Map传递数据以减少值对象类数量和实现通用化通信时验证数据合法性。
 
-## 1.快速入门
+## 1 快速入门
 
 ### 1.1 添加依赖
 
@@ -11,14 +10,13 @@
 <dependency>
   <groupId>com.github.sham2k</groupId>
   <artifactId>validate-assists</artifactId>
-  <version>1.0.0</version>
+  <version>0.2.0</version>
 </dependency>
 ````
 
 ### 1.2 配置验证约束
 
-本工具通过自定义校验器（`@ValueMap`）扩展 HibernateValidator 功能，因此需在相应字段上添加约束注解，或通过XML文件定义相应字段的约束，具体定义方法参考
-HibernateValidator 文档。
+本工具通过自定义校验器（`@ValueMap`）扩展 HibernateValidator 功能，因此需在相应字段上添加约束注解，或通过XML文件定义相应字段的约束，具体定义方法参考 HibernateValidator 文档。
 
 #### 1.2.1 待验证的类
 
@@ -83,8 +81,7 @@ public class UserReq
 ````
 
 * 本例在`reqData`字段定义`ValueMap`约束，指示该字段由本工具进行验证。
-* `reqData`字段的组成项及约束定义，由名为`defineName`的元素值确定，本例中为`cmd.001`
-  。本工具自动从各约束配置中查找名为`cmd.001`的约束集合，并使用它对`reqData`进行验证。
+* `reqData`字段的组成项及约束定义，由名为`defineName`的元素值确定，本例中为`cmd.001`。本工具自动从各约束配置中查找名为`cmd.001`的约束集合，并使用它对`reqData`进行验证。
 
 #### 1.2.3 ReqData 约束配置
 
@@ -120,8 +117,7 @@ public class UserReq
 ````
 
 * 本文件格式和标准的HibernateValidator文件一致，只是目前没有包含`xmlns`等文件描述信息。
-* 一个文件可以定义一个或多个`bean`，并通过`class`属性定义约束集合的名称。该名称应全局唯一，且和`WebReq`
-  文件的定义一致。本工具据此确定要使用哪个约束集合对`reqData`进行验证。
+* 一个文件可以定义一个或多个`bean`，并通过`class`属性定义约束集合的名称。该名称应全局唯一，且和`WebReq`文件的定义一致。本工具据此确定要使用哪个约束集合对`reqData`进行验证。
 * `bean`的组成字段是变化的，由业务规则确定。
 * 本例中，`user`字段是对象，通过`<valid/>`指示由HibernateValidator进行验证。
 
@@ -147,16 +143,12 @@ ConfigManager.loadConfig("/app/config", "validation-cfg");
 
 ````
 
-* `config`: 配置外置时，为存储配置文件的具体目录。如没有使用配置外置，本参数可以设置为`null`或`""`。如该参数值为`null`
-  ，本工具自动尝试从环境变量`APP_CFG_HOME`和`CONFIG_HOME`获取值作为本参数的值。
-* `validation-cfg`: 配置文件名标识。本工具自动扫描类路径和配置目录下文件名前缀是该标识或目录名是该标识的`.xml`
-  文件。例如：`validation-cfg/*.xml`、`validation-cfg*.xml`。
+* `config`: 配置外置时，为存储配置文件的具体目录。如没有使用配置外置，本参数可以设置为`null`或`""`。如该参数值为`null`，本工具自动尝试从环境变量`APP_CFG_HOME`和`CONFIG_HOME`获取值作为本参数的值。
+* `validation-cfg`: 配置文件名标识。本工具自动扫描类路径和配置目录下文件名前缀是该标识或目录名是该标识的`.xml`文件。例如：`validation-cfg/*.xml`、`validation-cfg*.xml`。
 
 ### 1.4 执行验证
 
-使用 HibernateValidator 标准用法执行验证。验证过程中 HibernateValidator 自动调用本工具进行额外验证。
-如应用程序启用`group`验证，由于本工具无法从 HibernateValidator 获取当前验证的`groups`
-，因此应在启动验证前，通过如下代码设置当前启用的`groups`。
+使用 HibernateValidator 标准用法执行验证。验证过程中 HibernateValidator 自动调用本工具进行额外验证。 如应用程序启用`group`验证，由于本工具无法从 HibernateValidator 获取当前验证的`groups`，因此应在启动验证前，通过如下代码设置当前启用的`groups`。
 
 ````
 ValidatorManager.setGroups(Default.class, SELECT.class);
@@ -175,12 +167,11 @@ Set<ConstraintViolation<WebReq>> result = ValidatorManager.validate(req, SELECT.
 ValidatorManager.setGroups(null);
 ````
 
-## 2.高级用法
+## 2 典型使用
 
 ### 2.1 自动判定约束集合名
 
-本工具支持通过`${xxx}`
-形式的占位符从当前对象中获取属性值作为约束集合的名称，以简化约束的配置，适用于使用Map传递多种格式数据的场景。<br>
+本工具支持通过`${xxx}`形式的占位符从当前对象中获取属性值作为约束集合的名称，以简化约束的配置，适用于使用Map传递多种格式数据的场景。<br>
 例如：
 
 #### 2.1.1 注解模式
@@ -202,6 +193,7 @@ public class WebReq4
 * `targetName = "reqData"`: 对WebReq对象的reqData属性进行验证。此时，reqData属性上不必添加约束。
 
 #### 2.1.2 XML 文件模式
+
 ````
 <constraint-mappings
         xmlns="https://jakarta.ee/xml/ns/validation/mapping"
@@ -229,12 +221,45 @@ public class WebReq4
     </bean>
 </constraint-mappings>
 ````
+
 * 给`<bean>/<class>`添加`ValueMap`约束，并通过`targetName`元素设置要验证的属性，通过`${cmdCode}`设置约束集合名。
 * 本场景下，不必给`reqData`属性添加约束。
 
 ### 2.2 验证 MAP 实例
+
 如待验证的对象是`Map`实例，参考`2.1节`给实例添加`@ValueMap`约束即可。
 
 ### 2.3 验证嵌套 Map
+
 如拟验证的 MAP 实例的元素值是 Map 实例，则参考如下配置验证该嵌套的 Map 实例。
 
+````
+<constraint-mappings>
+    <bean class="cmd.005" ignore-annotations="false">
+        ...
+        <field name="user">
+            <valid/>
+        </field>
+        <field name="subMap">
+            <valid name="sub.001" />
+        </field>
+    </bean>
+</constraint-mappings>
+
+````
+
+* 给嵌套的 MAP 字段添加`<valid>`约束，指示要验证本字段，并通过`name`属性指示约束集合的名称。
+
+# 3 变更历史
+
+## 3.1 Version 0.1.0
+
+### 3.1.1 新增
+
+* 实现基本功能
+
+## 3.2 Version 0.2.0
+
+### 3.2.1 新增
+
+* 支持验证嵌套的 MAP 实例

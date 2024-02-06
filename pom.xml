@@ -6,13 +6,13 @@
 
     <groupId>io.github.sham2k</groupId>
     <artifactId>validate-assists</artifactId>
-    <version>0.1.0</version>
+    <version>0.2.0</version>
 
     <name>validate-assists</name>
     <description>
-        Enhance the functionality of Hibernate Validator,
-        support setting constraints on Map by key,
-        and validate values.
+        This tool enhances the functionality of HibernateValidator by supporting define constraints on the
+        Map's keys and validate Map's values. The typical application scenario is to transfer data through a Map object
+        and validate the validity of data during universal communication.
     </description>
     <url>http://github.com/validate-assists/</url>
     <licenses>

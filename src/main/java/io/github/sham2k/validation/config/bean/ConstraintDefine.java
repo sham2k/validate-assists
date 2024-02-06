@@ -6,6 +6,7 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import lombok.Data;
 import org.hibernate.validator.internal.util.annotation.ConstraintAnnotationDescriptor;
 
+import java.lang.annotation.Annotation;
 import java.util.List;
 
 /**
@@ -34,5 +35,5 @@ public class ConstraintDefine
      * 校验规则元数据
      */
     @JsonIgnore
-    private ConstraintAnnotationDescriptor<?> annotationDescriptor;
+    private ConstraintAnnotationDescriptor<Annotation> annotationDescriptor;
 }
