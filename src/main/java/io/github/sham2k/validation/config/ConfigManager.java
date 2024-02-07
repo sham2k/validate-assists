@@ -44,8 +44,8 @@ public class ConfigManager
                 try (InputStream is = resource.getInputStream()) {
                     readConfig(mapper, is);
                 }
-                catch (IOException e) {
-                    log.error("Failed to read validation file " + resource.getFilename(), e);
+                catch (Exception e) {
+                    log.error("Failed to read validation file [" + resource.getFilename() + "]", e);
                     throw new RuntimeException(e);
                 }
             }
@@ -59,7 +59,7 @@ public class ConfigManager
         try (InputStream is = new FileInputStream(fileName)) {
             readConfig(mapper, is);
         }
-        catch (IOException e) {
+        catch (Exception e) {
             log.error("Failed to read validation file " + fileName, e);
             throw new RuntimeException(e);
         }

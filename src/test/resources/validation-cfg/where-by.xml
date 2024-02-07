@@ -1,22 +1,22 @@
 <constraint-mappings>
-    <bean class="sub.001" ignore-annotations="false">
-        <field name="k1">
+    <bean class="whereBy" ignore-annotations="false">
+        <field name="userCode">
             <constraint annotation="org.hibernate.validator.constraints.Length">
                 <element name="min">
-                    <value>3</value>
+                    <value>8</value>
                 </element>
                 <element name="max">
-                    <value>4</value>
+                    <value>8</value>
                 </element>
             </constraint>
         </field>
-        <field name="k2">
+        <field name="userName">
             <constraint annotation="org.hibernate.validator.constraints.Length">
                 <element name="min">
-                    <value>3</value>
+                    <value>8</value>
                 </element>
                 <element name="max">
-                    <value>6</value>
+                    <value>64</value>
                 </element>
             </constraint>
         </field>

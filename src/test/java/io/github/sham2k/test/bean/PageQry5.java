@@ -4,9 +4,12 @@ import lombok.Data;
 
 import java.util.Map;
 
+/**
+ * 使用本工具配置整个类约束。
+ */
 @Data
-public class WebReq5
+public class PageQry5
 {
     private String cmdCode;
-    private Map<String, Object> reqData;
+    private Map<String, Object> qryData;
 }

@@ -4,9 +4,12 @@ import lombok.Data;
 
 import java.util.Map;
 
+/**
+ * 使用XML文件配置类约束。
+ */
 @Data
-public class WebReq1
+public class PageQry2
 {
     private String cmdCode;
-    private Map<String, Object> reqData;
+    private Map<String, Object> qryData;
 }

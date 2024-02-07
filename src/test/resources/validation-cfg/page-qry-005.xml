@@ -1,20 +1,18 @@
 <constraint-mappings>
-    <bean class="cmd.001" ignore-annotations="false">
-        <field name="pageInfo">
-            <valid/>
-        </field>
-        <field name="table">
+    <bean class="pageQry.005" ignore-annotations="false">
+        <field name="cmdCode">
             <constraint annotation="org.hibernate.validator.constraints.Length">
+                <message>cmdCode长度应是xxx.nnn格式！</message>
                 <element name="min">
-                    <value>8</value>
+                    <value>7</value>
                 </element>
                 <element name="max">
-                    <value>64</value>
+                    <value>7</value>
                 </element>
             </constraint>
         </field>
-        <field name="whereBy">
-            <valid name="whereBy"/>
+        <field name="qryData">
+            <valid name="cmd.001"/>
         </field>
     </bean>
 </constraint-mappings>

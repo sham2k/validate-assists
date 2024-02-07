@@ -6,7 +6,7 @@
 
     <groupId>io.github.sham2k</groupId>
     <artifactId>validate-assists</artifactId>
-    <version>0.2.3</version>
+    <version>0.2.4</version>
 
     <name>validate-assists</name>
     <description>
@@ -45,7 +45,7 @@
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
         <maven.javadoc.skip>false</maven.javadoc.skip>
-        <maven.test.skip>true</maven.test.skip>
+        <maven.test.skip>false</maven.test.skip>
 
         <!-- 依赖包版本定义 -->
         <springboot.version>3.2.2</springboot.version>

@@ -5,20 +5,19 @@
             https://jakarta.ee/xml/ns/validation/validation-mapping-3.0.xsd"
         version="3.0">
 
-    <bean class="io.github.sham2k.test.bean.WebReq2" ignore-annotations="false">
-        <class ignore-annotations="false">
-            <constraint annotation="io.github.sham2k.validation.constraints.ValueMap">
-                <element name="targetName">
-                    <value>reqData</value>
-                </element>
-                <element name="defineName">${cmdCode}</element>
-            </constraint>
-        </class>
+    <bean class="io.github.sham2k.test.bean.PageQry1" ignore-annotations="false">
         <field name="cmdCode">
             <constraint annotation="org.hibernate.validator.constraints.Length">
                 <message>cmdCode长度应是xxx.nnn格式！</message>
                 <element name="max">7</element>
                 <element name="min">7</element>
+            </constraint>
+        </field>
+        <field name="qryData">
+            <constraint annotation="io.github.sham2k.validation.constraints.ValueMap">
+                <element name="defineName">
+                    <value>cmd.001</value>
+                </element>
             </constraint>
         </field>
     </bean>

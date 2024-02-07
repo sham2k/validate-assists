@@ -10,7 +10,7 @@ This tool enhances the functionality of HibernateValidator by supporting define 
 <dependency>
   <groupId>com.github.sham2k</groupId>
   <artifactId>validate-assists</artifactId>
-  <version>0.2.0</version>
+  <version>0.2.4</version>
 </dependency>
 ````
 
@@ -202,7 +202,7 @@ public class WebReq4
             https://jakarta.ee/xml/ns/validation/validation-mapping-3.0.xsd"
         version="3.0">
 
-    <bean class="io.github.sham2k.test.bean.WebReq2" ignore-annotations="false">
+    <bean class="io.github.sham2k.test.bean.PageQry2" ignore-annotations="false">
         <class ignore-annotations="false">
             <constraint annotation="io.github.sham2k.validation.constraints.ValueMap">
                 <element name="targetName">
@@ -284,3 +284,7 @@ If the element value of the MAP instance which be validated is a Map instance, r
 ## 3.5 Version 0.2.3
 ### 3.5.1 Modify
 * Refactoring verification method, supporting setting the 'targetName' parameter.
+
+## 3.6 Version 0.2.4
+### 3.6.1 Modify
+* Fix path name error when validate nested maps.

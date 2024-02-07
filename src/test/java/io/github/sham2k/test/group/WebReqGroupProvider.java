@@ -1,18 +1,18 @@
 package io.github.sham2k.test.group;
 
-import io.github.sham2k.test.bean.WebReq1;
+import io.github.sham2k.test.bean.PageQry1;
 import jakarta.validation.groups.Default;
 import org.hibernate.validator.spi.group.DefaultGroupSequenceProvider;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class WebReqGroupProvider implements DefaultGroupSequenceProvider<WebReq1>
+public class WebReqGroupProvider implements DefaultGroupSequenceProvider<PageQry1>
 {
-    @Override public List<Class<?>> getValidationGroups(WebReq1 webReq)
+    @Override public List<Class<?>> getValidationGroups(PageQry1 webReq)
     {
         List<Class<?>> groups = new ArrayList<>();
-        groups.add(WebReq1.class);
+        groups.add(PageQry1.class);
         groups.add(Default.class);
         if (webReq != null) {
             switch (webReq.getCmdCode()) {
