@@ -10,7 +10,7 @@
 <dependency>
   <groupId>com.github.sham2k</groupId>
   <artifactId>validate-assists</artifactId>
-  <version>0.2.4</version>
+  <version>0.2.5</version>
 </dependency>
 ````
 
@@ -263,26 +263,30 @@ if (result.isEmpty()) {
 * 给嵌套的 MAP 字段添加`<valid>`约束，指示要验证本字段，并通过`name`属性指示约束集合的名称。
 
 # 3 变更历史
-## 3.1 Version 0.1.0
-### 3.1.1 新增
+## 2024-02-05 Version 0.1.0
+### 新增
 * 实现基本功能
 
-## 3.2 Version 0.2.0
-### 3.2.1 新增
+## 2024-02-06 Version 0.2.0
+### 新增
 * 支持验证嵌套的 MAP 实例
 
-## 3.3 Version 0.2.1
-### 3.3.1 Modify
+## 2024-02-06 Version 0.2.1
+### 修改
 * 将`ValidatorManager` 从包`io.github.sham2k.validation.config`迁移到`io.github.sham2k.validation.validator`。
 
-## 3.4 Version 0.2.2
-### 3.4.1 Append
+## 2024-02-06 Version 0.2.2
+### 新增
 * 实现直接使用约束集合校验对象。
 
-## 3.5 Version 0.2.3
-### 3.5.1 Modify
+## 2024-02-06 Version 0.2.3
+### 修改
 * 重构校验方法，支持设置`targetName`参数。
 
-## 3.6 Version 0.2.4
-### 3.6.1 Modify
+## 2024-02-07 Version 0.2.4
+### 修改
 * 修正校验嵌套Map时路径名错误。
+
+## 2024-02-20 Version 0.2.5
+### 修改
+* 修正读取校验定义文件时，对配置目录路径判断错误。

@@ -31,14 +31,12 @@ public class ResourceScanner
         try {
             ResourcePatternResolver resourcePatternResolver = new PathMatchingResourcePatternResolver();
             resources = resourcePatternResolver.getResources(locationPattern);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             // NOTHING
         }
         if (resources != null) {
             return Arrays.asList(resources);
-        }
-        else {
+        } else {
             return new ArrayList<>();
         }
     }
@@ -56,19 +54,20 @@ public class ResourceScanner
         // 获取外部配置文件
         if (StringUtils.isBlank(configFileHome)) {
             configFileHome = System.getenv("APP_CFG_HOME");
-            if (StringUtils.isNotBlank(configFileHome)) {
+            if (StringUtils.isBlank(configFileHome)) {
                 configFileHome = System.getenv("CONFIG_HOME");
+                if (StringUtils.isBlank(configFileHome)) {
+                    configFileHome = ".";
+                }
             }
         }
-        if (StringUtils.isNotBlank(configFileHome)) {
-            if (!configFileHome.endsWith("/")) {
-                configFileHome = configFileHome + "/";
-            }
-            List<Resource> fileResources1 = scanResources(configFileHome + locationPattern1);
-            List<Resource> fileResources2 = scanResources(configFileHome + locationPattern2);
-            resources.addAll(fileResources1);
-            resources.addAll(fileResources2);
+        if (!configFileHome.endsWith("/")) {
+            configFileHome = configFileHome + "/";
         }
+        List<Resource> fileResources1 = scanResources(configFileHome + locationPattern1);
+        List<Resource> fileResources2 = scanResources(configFileHome + locationPattern2);
+        resources.addAll(fileResources1);
+        resources.addAll(fileResources2);
         return resources;
     }
 }

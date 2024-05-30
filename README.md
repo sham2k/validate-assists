@@ -10,7 +10,7 @@ This tool enhances the functionality of HibernateValidator by supporting define 
 <dependency>
   <groupId>com.github.sham2k</groupId>
   <artifactId>validate-assists</artifactId>
-  <version>0.2.4</version>
+  <version>0.2.5</version>
 </dependency>
 ````
 
@@ -18,7 +18,7 @@ This tool enhances the functionality of HibernateValidator by supporting define 
 
 This tool extends the HibernateValidator function through a custom validator (`@ValueMap`). Therefore, constraint annotations need to be added to the corresponding fields, or the constraints of the corresponding fields need to be defined through an XML file. Please refer to the specific definition method for reference HibernateValidator documentation.
 
-#### 1.2.1 Class to be valudated
+#### 1.2.1 Class to be validated
 
 ````
 @Data
@@ -265,26 +265,30 @@ If the element value of the MAP instance which be validated is a Map instance, r
 
 # 3 Change History
 
-## 3.1 Version 0.1.0
-### 3.1.1 Append
+## 2024-02-05 Version 0.1.0
+### Append
 * Implement all basic functions
 
-## 3.2 Version 0.2.0
-### 3.2.1 Append
+## 2024-02-06 Version 0.2.0
+### Append
 * Support validate nested MAP instances.
 
-## 3.3 Version 0.2.1
-### 3.3.1 Modify
+## 2024-02-06 Version 0.2.1
+### Modify
 * Migrate `ValidatorManager` from package `io.github.sham2k.validation.config` to `io.github.sham2k.validation.validator`.
 
-## 3.4 Version 0.2.2
-### 3.4.1 Append
+## 2024-02-06 Version 0.2.2
+### Append
 * Implement direct validation of objects using constraint sets.
 
-## 3.5 Version 0.2.3
-### 3.5.1 Modify
+## 2024-02-06 Version 0.2.3
+### Modify
 * Refactoring verification method, supporting setting the 'targetName' parameter.
 
-## 3.6 Version 0.2.4
-### 3.6.1 Modify
+## 2024-02-07 Version 0.2.4
+### Modify
 * Fix path name error when validate nested maps.
+
+## 2024-02-20 Version 0.2.5
+### Modify
+* Fix config home path error when read validation files.
